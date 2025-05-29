@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Header Top Layout</title>
+    <link rel="stylesheet" href="../assets/css/components/header.css" />
+    <link rel="stylesheet" href="../assets/css/components/nav.css" />
+    <link rel="stylesheet" href="../assets/css/components/footer.css" />
+    <link rel="stylesheet" href="../assets/css/components/layout.css" />
+    <style>
+      :root {
+        --header-bg: #0e639c;
+        --nav-bg: #252526;
+        --main-bg: #333333;
+        --footer-bg: #1e1e1e;
+        --text-color: #e1e1e1;
+        --accent-color: #3794ff;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text-color);
+        margin: 0;
+        padding: 0;
+        grid-template-areas:
+          "nav nav nav"
+          "header header header"
+          "main main main"
+          "footer footer footer";
+        grid-template-rows: auto auto 1fr auto;
+        min-height: 100vh;
+        display: grid;
+      }
+
+      header {
+        grid-area: header;
+        background-color: var(--header-bg);
+        padding: 2rem 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      nav {
+        grid-area: nav;
+        background-color: var(--nav-bg);
+        padding: 0.75rem 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 10;
+      }
+
+      main {
+        grid-area: main;
+        background-color: var(--main-bg);
+        padding: 2rem 1rem;
+        overflow-y: auto;
+        flex: 1;
+      }
+
+      footer {
+        grid-area: footer;
+        background-color: var(--footer-bg);
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .content-card {
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+      }
+      .content-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      /* Navigation Styles */
+      .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-link {
+        color: var(--text-color);
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        background-color: var(--accent-color);
+      }
+
+      /* Header Content Styles */
+      .header-content {
+        text-align: center;
+      }
+
+      .header-title {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .header-subtitle {
+        font-size: 1.2rem;
+        opacity: 0.8;
+      }
+
+      .header-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1rem;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        font-weight: 500;
+        transition: transform 0.3s ease;
+      }
+
+      .btn-primary {
+        background-color: var(--accent-color);
+        color: white;
+      }
+
+      .btn-secondary {
+        background-color: transparent;
+        border: 1px solid var(--accent-color);
+        color: var(--accent-color);
+      }
+
+      .btn-primary:hover,
+      .btn-secondary:hover {
+        transform: translateY(-2px);
+      }
+
+      /* Content Card Styles */
+      .content-card h2 {
+        color: var(--accent-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .content-card p {
+        opacity: 0.8;
+      }
+
+      /* Footer Styles */
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .footer-info {
+        opacity: 0.7;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .footer-links a {
+        color: var(--text-color);
+        text-decoration: none;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        opacity: 1;
+      }
+
+      @media (max-width: 768px) {
+        .nav-menu {
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
+        }
+
+        .header-actions {
+          flex-direction: column;
+        }
+
+        .footer-content {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .footer-links {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body class="layout-header-top">
+    <nav class="nav-section">
+      <ul class="nav-menu">
+        <li><a href="#" class="nav-link active">Home</a></li>
+        <li><a href="#" class="nav-link">Products</a></li>
+        <li><a href="#" class="nav-link">Services</a></li>
+        <li><a href="#" class="nav-link">About</a></li>
+        <li><a href="#" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+
+    <header class="header-section">
+      <div class="header-content">
+        <h1 class="header-title">Welcome to Our Platform</h1>
+        <p class="header-subtitle">
+          Discover amazing possibilities with our services
+        </p>
+      </div>
+      <div class="header-actions">
+        <button class="btn-primary">Get Started</button>
+        <button class="btn-secondary">Learn More</button>
+      </div>
+    </header>
+
+    <main class="main-section">
+      <div class="content-grid">
+        <div class="content-card">
+          <h2>Featured Products</h2>
+          <p>
+            Explore our latest collection of innovative solutions designed to
+            transform your business. Our award-winning products have helped
+            thousands of companies increase productivity by 300%.
+          </p>
+        </div>
+        <div class="content-card">
+          <h2>Latest News</h2>
+          <p>
+            We're excited to announce our Series C funding of $100M, enabling
+            us to expand our services globally. Join our growing team of 500+
+            experts worldwide.
+          </p>
+        </div>
+        <div class="content-card">
+          <h2>Customer Success</h2>
+          <p>
+            With a 98% customer satisfaction rate and an industry-leading NPS
+            score of 85, our solutions have delivered measurable results for
+            Fortune 500 companies.
+          </p>
+        </div>
+        <div class="content-card">
+          <h2>Innovation Hub</h2>
+          <p>
+            Our R&D team has filed 50+ patents this year alone. Discover how
+            our cutting-edge technology is shaping the future of enterprise
+            solutions.
+          </p>
+        </div>
+        <div class="content-card">
+          <h2>Global Impact</h2>
+          <p>
+            Present in 30+ countries, serving 1M+ users daily. Our platform
+            processes over 1B transactions monthly with 99.99% uptime.
+          </p>
+        </div>
+        <div class="content-card">
+          <h2>Sustainability</h2>
+          <p>
+            Committed to net-zero emissions by 2030. Our green initiatives
+            have already reduced carbon footprint by 45% since 2020.
+          </p>
+        </div>
+        <div class="content-card">
+          <h2>Expert Support</h2>
+          <p>
+            24/7 dedicated support team with average response time of 2 minutes.
+            Rated #1 in customer service by Industry Review 2024.
+          </p>
+        </div>
+        <div class="content-card">
+          <h2>Partner Network</h2>
+          <p>
+            Join our network of 1000+ certified partners worldwide. Access
+            exclusive resources and unlock new revenue streams.
+          </p>
+        </div>
+        <div class="content-card">
+          <h2>Future Ready</h2>
+          <p>
+            AI-powered solutions with advanced machine learning capabilities.
+            Named "Most Innovative Tech Company" three years running.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer-section">
+      <div class="footer-content">
+        <div class="footer-info">
+          <p>&copy; 2025 Your Company. All rights reserved.</p>
+          <p>Contact us: info@example.com</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
