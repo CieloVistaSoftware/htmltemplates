@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Editor - Development Version</title>
+    <link rel="stylesheet" href="/src/assets/css/main.css" />
+    <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo.svg" />
+    <meta
+      name="description"
+      content="Visual HTML Editor with drag-and-drop interface"
+    />
+    <script>
+      // Check for layout selection immediately on page load before any content is rendered
+      (function() {
+        function hasLayoutSelected() {
+          // Check URL parameters
+          const urlParams = new URLSearchParams(window.location.search);
+          if (urlParams.has('layout')) {
+            localStorage.setItem('htmlEditorLayout', urlParams.get('layout'));
+            return true;
+          }
+          
+          // Check localStorage
+          return localStorage.getItem('htmlEditorLayout') !== null;
+        }
+
+        // Redirect if no layout is selected
+        if (!hasLayoutSelected() && !window.location.href.includes('layout/index.html')) {
+          console.log('No layout selected, redirecting to layout selection page...');
+          window.location.replace('layout/index.html');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app" class="app-container">
+      <!-- Header section -->
+      <header id="header" class="header" data-partial="header-section.html">
+        <!-- Header content loaded from partial -->
+      </header>
+
+      <!-- Main content -->
+      <main id="main" class="main-content" data-partial="main-container.html">
+        <!-- Main container content loaded from partial -->
+      </main>
+
+      <!-- Footer -->
+      <footer id="footer" class="footer" data-partial="footer-section.html">
+        <!-- Footer content loaded from partial -->
+      </footer>
+
+      <div class="preview-selector-container">
+        <button class="preview-button active" id="preview-button">Preview</button>
+        <button class="select-button" id="select-button">Select</button>
+      </div>
+    </div>
+    <!-- Scripts -->
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

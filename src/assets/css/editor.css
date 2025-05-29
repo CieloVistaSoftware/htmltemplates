@@ -1,0 +1,38 @@
+/* Editor element styles */
+.editor-element {
+  /* Add a subtle indicator that the element is editable */
+  cursor: pointer;
+  transition: outline 0.2s ease;
+}
+
+.editor-element:hover {
+  outline: 1px dashed rgba(30, 144, 255, 0.5);
+}
+
+.editor-element.selected {
+  outline: 2px solid rgba(30, 144, 255, 0.7);
+}
+
+.editor-element.editing {
+  outline: 2px solid rgba(30, 144, 255, 1);
+  min-height: 1rem;
+  min-width: 1rem;
+}
+
+/* Show editing status in UI */
+.editing-status {
+  color: #1e90ff;
+  font-weight: bold;
+}
+
+/* Tooltip for editing help */
+.edit-tooltip {
+  background-color: rgba(30, 144, 255, 0.9);
+  color: white;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  position: absolute;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}

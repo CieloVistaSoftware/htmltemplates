@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nav Top Layout</title>
+    <style>
+        :root {
+            --header-bg: #0e639c;
+            --nav-bg: #252526;
+            --main-bg: #333333;
+            --footer-bg: #1e1e1e;
+            --text-color: #e1e1e1;
+            --accent-color: #3794ff;
+            --link-color: #4fc3f7;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: grid;
+            grid-template-areas:
+                "nav nav nav"
+                "header header header"
+                "main main main"
+                "footer footer footer";
+            grid-template-rows: 10% 15% 65% 10%;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        
+        header {
+            grid-area: header;
+            background-color: var(--header-bg);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        nav {
+            grid-area: nav;
+            background-color: var(--nav-bg);
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        main {
+            grid-area: main;
+            background-color: var(--main-bg);
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        
+        footer {
+            grid-area: footer;
+            background-color: var(--footer-bg);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Additional styling for content */
+        h1, h2, h3 {
+            margin-top: 0;
+        }
+
+        .btn {
+            background: #0e639c;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin: 5px 5px;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: var(--accent-color);
+        }
+
+        .nav-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-small {
+            font-weight: bold;
+            margin-right: 20px;
+            font-size: 1.2em;
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav li {
+            padding: 0 10px;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: white;
+            margin-right: 5px;
+        }
+
+        .feature-section {
+            display: flex;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .feature-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            padding: 15px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-icon {
+            width: 30px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .social-icon:hover {
+            background-color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-section">
+            <div class="logo-small">NT</div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+        <div class="nav-section">
+            <form class="search-form">
+                <input type="text" placeholder="Search..." class="search-input">
+                <button class="btn">Search</button>
+            </form>
+            <button class="btn">Login</button>
+        </div>
+    </nav>
+    
+    <header>
+        <h1>Nav Top Layout</h1>
+        <p>This layout features a navigation bar at the top, followed by a header section for important content or announcements.</p>
+        <div>
+            <button class="btn">Get Started</button>
+            <button class="btn">Learn More</button>
+        </div>
+    </header>
+    
+    <main>
+        <h2>Main Content Area</h2>
+        <p>Welcome to the Nav Top Layout template. This layout places the navigation bar at the very top of the page, followed by a header section, the main content area, and finally a footer.</p>
+        
+        <p>Once you've chosen this layout, you can begin customizing the content by dragging elements into this main section.</p>
+        
+        <div class="feature-section">
+            <div class="feature-card">
+                <h3>Navigation First</h3>
+                <p>This layout prioritizes navigation by placing it at the top of the page, ensuring users can immediately access important links.</p>
+                <p>The compact navigation bar includes essential links and search functionality, conserving vertical space while maintaining accessibility.</p>
+                <p>This approach is ideal for content-rich websites where easy navigation is crucial.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>Prominent Header</h3>
+                <p>Below the navigation, a spacious header area provides an opportunity to showcase your most important messaging or call to action.</p>
+                <p>This section is perfect for welcome messages, announcements, promotions, or key value propositions.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>Content Focus</h3>
+                <p>The large main content area allows for extensive information presentation with clear visual hierarchy.</p>
+                <p>This layout works well for blogs, information portals, documentation sites, and any content that requires scrolling.</p>
+            </div>
+        </div>
+        
+        <div class="feature-section">
+            <div class="feature-card">
+                <h3>Layout Benefits</h3>
+                <ul>
+                    <li>Intuitive navigation structure</li>
+                    <li>Clear content hierarchy</li>
+                    <li>Familiar pattern for users</li>
+                    <li>Works well on various screen sizes</li>
+                    <li>Provides balanced visual weight</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <h3>Ideal For</h3>
+                <ul>
+                    <li>Corporate websites</li>
+                    <li>Online publications</li>
+                    <li>Documentation sites</li>
+                    <li>Educational platforms</li>
+                    <li>Product showcases</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div>
+            <p>&copy; 2025 HTML Editor</p>
+            <p>All rights reserved</p>
+        </div>
+        <div class="social-icons">
+            <div class="social-icon">f</div>
+            <div class="social-icon">t</div>
+            <div class="social-icon">in</div>
+            <div class="social-icon">ig</div>
+        </div>
+        <div>
+            <p>Privacy | Terms | Help</p>
+        </div>
+    </footer>
+</body>
+</html>

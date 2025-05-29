@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nav Left Layout</title>
+  <style>
+    /* Nav Left Layout grid styles */
+    .editor-canvas {
+      display: grid;
+      grid-template-areas:
+        "nav header header"
+        "nav main main"
+        "nav footer footer";
+      grid-template-rows: 15% 70% 15%;
+      grid-template-columns: 200px 1fr 1fr;
+      gap: 10px;
+      padding: 10px;
+      height: 100%;
+    }
+
+    .nav-area {
+      grid-area: nav;
+      background: #f0f0f0;
+      padding: 20px;
+    }
+
+    .header-area {
+      grid-area: header;
+      background: #e0e0e0;
+      padding: 20px;
+    }
+
+    .main-area {
+      grid-area: main;
+      background: #fff;
+      padding: 20px;
+    }
+
+    .footer-area {
+      grid-area: footer;
+      background: #e0e0e0;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav-area" data-element-type="navigation">
+    <h3>Navigation Area</h3>
+    <p>Add your navigation menu here</p>
+  </nav>
+  
+  <header class="header-area" data-element-type="header">
+    <h2>Header Area</h2>
+    <p>Add your header content here</p>
+  </header>
+  
+  <main class="main-area" data-element-type="main">
+    <h1>Main Content Area</h1>
+    <p>Add your main content here</p>
+  </main>
+  
+  <footer class="footer-area" data-element-type="footer">
+    <p>Footer Area - Add your footer content here</p>
+  </footer>
+</body>
+</html>

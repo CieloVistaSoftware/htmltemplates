@@ -1,0 +1,669 @@
+/* Main layout styling */
+:root {
+  /* Dark theme variables */
+  --bg-primary: #1e1e1e;
+  --bg-secondary: #252526;
+  --bg-tertiary: #333333;
+  --text-primary: #e1e1e1;
+  --text-secondary: #b8b8b8;
+  --accent-primary: #0e639c;
+  --accent-secondary: #3794ff;
+  --border-color: #474747;
+  --error-color: #f44336;
+  --warning-color: #ff9800;
+  --info-color: #2196F3;
+  --critical-color: #9C27B0;
+  --header-bg: #0e639c;
+  --success-color: #4caf50;
+  --grid-dot-color: rgba(255, 255, 255, 0.2);
+  --grid-dot-highlight: rgba(76, 175, 80, 0.8);
+  --grid-dot-size: 4px;
+  --grid-spacing: 2rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Apply the exact grid from the JSON configuration */
+.app-container {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "html-items canvas canvas"
+    "footer footer footer";
+  grid-template-rows: 10% 80% 10%;
+  grid-template-columns: 25% 1fr 1fr;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.header {
+  grid-area: header;
+  background-color: var(--header-bg);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Remove display:flex from main-content, it doesn't need it */
+.main-content {
+  /* This shouldn't have its own grid area as it's just a container */
+  display: contents;
+}
+
+/* Important: Assign html-items-panel to the html-items grid area */
+.items-panel {
+  grid-area: html-items;
+  background-color: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  overflow-y: auto;
+  padding: 1rem;
+  height: 100%;
+}
+
+/* Important: Assign canvas-container to the canvas grid area */
+.canvas-container {
+  grid-area: canvas;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary);
+  height: 100%;
+  overflow: auto;
+}
+
+#canvas-toolbar {
+  background-color: var(--bg-tertiary);
+  padding: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.canvas {
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  flex-grow: 1;
+  position: relative;
+  min-height: 300px;
+}
+
+/* Grid dots styles */
+.grid-dot {
+  position: absolute;
+  width: var(--grid-dot-size);
+  height: var(--grid-dot-size);
+  background-color: var(--grid-dot-color);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 100;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.grid-dot.highlight {
+  background-color: var(--grid-dot-highlight);
+  transform: scale(1.5);
+  z-index: 101;
+}
+
+/* Make grid dots more visible when hovering over the canvas */
+.canvas:hover .grid-dot {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Editing status styles */
+.editing-status {
+  color: var(--success-color) !important;
+  font-weight: bold;
+}
+
+.welcome-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.footer {
+  grid-area: footer;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Component styling for dark mode */
+button {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: var(--accent-primary);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+input, select, textarea {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 6px;
+  width: 100%;
+}
+
+.section {
+  margin-bottom: 1.5rem;
+}
+
+.section h4 {
+  color: var(--accent-secondary);
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li[draggable=true] {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  padding: 8px;
+  margin: 4px 0;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  cursor: grab;
+  transition: background-color 0.2s;
+}
+
+li[draggable=true]:hover {
+  background-color: var(--accent-primary);
+}
+
+#status-info {
+  display: flex;
+  gap: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.connected {
+  color: var(--success-color);
+}
+
+.disconnected {
+  color: var(--error-color);
+}
+
+.hidden {
+  display: none;
+}
+
+/* Severity colors for error handling */
+.severity-INFO {
+  color: var(--info-color);
+}
+
+.severity-WARNING {
+  color: var(--warning-color);
+}
+
+.severity-ERROR {
+  color: var(--error-color);
+}
+
+.severity-CRITICAL {
+  color: var(--critical-color);
+}
+
+/* Search container styling */
+#search-container {
+  margin-bottom: 1rem;
+}
+
+/* Make headings stand out more */
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0.5rem;
+}
+
+/* Property panel styling */
+#property-panel {
+  background-color: var(--bg-secondary);
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Toolbar styling */
+#toolbar {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Canvas grid dots and highlighting */
+.canvas .grid-dot {
+  position: absolute;
+  background-color: var(--grid-dot-color);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.canvas .grid-dot.highlight {
+  background-color: var(--grid-dot-highlight);
+}
+
+.canvas .grid-dot {
+  width: var(--grid-dot-size);
+  height: var(--grid-dot-size);
+}
+
+/* Example positioning for grid dots - this should be dynamically generated in a real scenario */
+.canvas .grid-dot:nth-child(odd) {
+  top: calc(50% - 1rem);
+  left: calc(50% - 1rem);
+}
+
+.canvas .grid-dot:nth-child(even) {
+  top: calc(50% + 1rem);
+  left: calc(50% + 1rem);
+}
+
+/* Layout System CSS */
+/* Base layout styles for the different layout templates */
+
+/* Nav Left Layout */
+body.layout-nav-left .app-container {
+  display: grid;
+  grid-template-areas:
+    "nav header header"
+    "nav main main"
+    "nav footer footer";
+  grid-template-rows: 15% 70% 15%;
+  grid-template-columns: 20% 40% 40%;
+}
+
+/* Nav Right Layout */
+body.layout-nav-right .app-container {
+  display: grid;
+  grid-template-areas:
+    "header header nav"
+    "main main nav"
+    "footer footer nav";
+  grid-template-rows: 15% 70% 15%;
+  grid-template-columns: 40% 40% 20%;
+}
+
+/* Header Top Layout */
+body.layout-header-top .app-container {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "nav nav nav"
+    "main main main"
+    "footer footer footer";
+  grid-template-rows: 15% 10% 65% 10%;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* Nav Top Layout */
+body.layout-nav-top .app-container {
+  display: grid;
+  grid-template-areas:
+    "nav nav nav"
+    "header header header"
+    "main main main"
+    "footer footer footer";
+  grid-template-rows: 10% 15% 65% 10%;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* Current layout indicator */
+#current-layout {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background-color: var(--accent-primary);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Template editing styles */
+.template-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  overflow: auto;
+  z-index: 5;
+}
+
+[data-editable="true"] {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+[data-editable="true"]:hover {
+  outline: 2px dashed var(--accent-secondary);
+  outline-offset: 2px;
+}
+
+[data-editable="true"]::before {
+  content: attr(data-element-type);
+  position: absolute;
+  top: -18px;
+  left: 0;
+  background-color: var(--accent-secondary);
+  color: var(--text-primary);
+  font-size: 10px;
+  padding: 0 4px;
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+[data-editable="true"]:hover::before {
+  opacity: 1;
+}
+
+.editing {
+  outline: 2px solid var(--accent-secondary) !important;
+  outline-offset: 2px;
+  box-shadow: 0 0 10px rgba(55, 148, 255, 0.5);
+}
+
+[contenteditable="true"] {
+  cursor: text;
+}
+
+/* Styles for editable content */
+[contenteditable="true"] {
+  outline: 1px dotted #ccc;
+  min-height: 1rem;
+}
+
+[contenteditable="true"]:hover {
+  outline: 1px dashed #999;
+}
+
+[contenteditable="true"].selected {
+  outline: 2px solid #1e90ff;
+}
+
+/* New component styles */
+.editor-card {
+  background-color: var(--bg-secondary);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  min-width: 200px;
+  border: 1px solid var(--border-color);
+}
+
+.card-header {
+  background-color: var(--accent-primary);
+  color: var(--text-primary);
+  padding: 10px 15px;
+  font-weight: bold;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-footer {
+  background-color: var(--bg-tertiary);
+  padding: 10px 15px;
+  border-top: 1px solid var(--border-color);
+}
+
+.editor-section {
+  background-color: var(--bg-tertiary);
+  border-radius: 4px;
+  padding: 15px;
+  margin: 15px 0;
+  border: 1px solid var(--border-color);
+}
+
+.section-content {
+  padding: 10px 0;
+}
+
+.custom-div {
+  padding: 10px;
+  border: 1px dashed var(--border-color);
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.editing-status {
+  background-color: var(--accent-secondary);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.loading-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+#editor-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: var(--bg-tertiary);
+}
+
+/* HTML Items Panel - Modern styling */
+.modern-panel {
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.panel-title {
+  color: var(--accent-primary);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.75rem;
+}
+
+.panel-search {
+  margin-bottom: 1.5rem;
+}
+
+.panel-search input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 4px;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.element-category {
+  margin-bottom: 1.5rem;
+}
+
+.element-category h4 {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid var(--accent-primary);
+}
+
+.element-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.element-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+  padding: 0.75rem;
+  transition: all 0.2s ease;
+  cursor: grab;
+  border: 1px solid transparent;
+}
+
+.element-card:hover {
+  background: var(--bg-primary);
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.element-card:active {
+  cursor: grabbing;
+}
+
+.element-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.element-name {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+/* Enhance canvas appearance */
+#editor-canvas {
+  position: relative;
+  background-image: radial-gradient(var(--grid-dot-color) 1px, transparent 1px);
+  background-size: var(--grid-spacing) var(--grid-spacing);
+  background-position: calc(var(--grid-spacing) / 2) calc(var(--grid-spacing) / 2);
+}
+
+/* Preview/Edit mode styling */
+
+/* Default: hide preview elements */
+.preview-content {
+  display: none;
+}
+
+/* Preview mode */
+body.preview-mode .editor-tools,
+body.preview-mode .grid-dot,
+body.preview-mode .non-content-element {
+  display: none !important;
+}
+
+body.preview-mode .preview-content {
+  display: block;
+}
+
+/* Edit mode */
+body.edit-mode .preview-content {
+  display: none;
+}
+
+body.edit-mode .editor-canvas {
+  /* Ensure editor canvas is visible */
+  display: block !important;
+}
+
+/* Style for the Preview/Select buttons */
+.preview-selector-container {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1.5rem;
+  background-color: #222;
+  z-index: 1000;
+}
+
+.preview-button, 
+.select-button {
+  flex: 1;
+  height: 1.5rem;
+  border: none;
+  background-color: #333;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.preview-button:hover, 
+.select-button:hover {
+  background-color: #444;
+}
+
+.preview-button.active,
+.select-button.active {
+  background-color: #555;
+  color: white;
+}
+
+/* Loading and error messages */
+.loading,
+.error {
+  padding: 2rem;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.loading {
+  color: #666;
+}
+
+.error {
+  color: #f44336;
+}
