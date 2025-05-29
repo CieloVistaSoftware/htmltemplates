@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechFlow - AI-Powered Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f0f23;
+            color: #e4e4e7;
+            line-height: 1.6;
+        }
+        
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%);
+            border-bottom: 1px solid #3730a3;
+            padding: 1rem 0;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #f8fafc;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        .header-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .btn-tech {
+            padding: 0.625rem 1.25rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #cbd5e1;
+            border: 2px solid #475569;
+        }
+        
+        .btn-outline:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: #6366f1;
+            color: #f8fafc;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+        
+        .main-wrapper {
+            display: flex;
+            flex: 1;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: #18181b;
+            border-right: 1px solid #27272a;
+            padding: 2rem 0;
+        }
+        
+        .nav-header {
+            padding: 0 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .nav-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 0.5rem;
+        }
+        
+        .nav-subtitle {
+            font-size: 0.875rem;
+            color: #71717a;
+        }
+        
+        .nav-sections {
+            list-style: none;
+        }
+        
+        .nav-section {
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            padding: 0 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #a1a1aa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        
+        .nav-links {
+            list-style: none;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 2rem;
+            color: #d4d4d8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: #1f1f23;
+            color: #f8fafc;
+            border-left-color: #6366f1;
+        }
+        
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.75rem;
+            opacity: 0.7;
+        }
+        
+        .nav-link:hover .nav-icon,
+        .nav-link.active .nav-icon {
+            opacity: 1;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 3rem;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+        }
+        
+        .page-header {
+            margin-bottom: 3rem;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #f8fafc, #cbd5e1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .page-description {
+            font-size: 1.125rem;
+            color: #94a3b8;
+            max-width: 600px;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+        
+        .tech-card {
+            background: linear-gradient(135deg, #1e1e2e 0%, #232340 100%);
+            border: 1px solid #374151;
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
+        }
+        
+        .tech-card:hover {
+            transform: translateY(-8px);
+            border-color: #6366f1;
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        .card-title {
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 0.25rem;
+        }
+        
+        .card-subtitle {
+            font-size: 0.875rem;
+            color: #94a3b8;
+        }
+        
+        .card-content {
+            color: #cbd5e1;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+        
+        .card-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            color: #d1d5db;
+            font-size: 0.9rem;
+        }
+        
+        .feature-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 0.75rem;
+            color: #10b981;
+        }
+        
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .status-badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-active {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+        
+        .status-beta {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+        
+        .card-action {
+            background: transparent;
+            border: 2px solid #374151;
+            color: #cbd5e1;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .card-action:hover {
+            border-color: #6366f1;
+            color: #f8fafc;
+        }
+        
+        .footer {
+            background: #0a0a0f;
+            border-top: 1px solid #27272a;
+            padding: 2rem 0;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        
+        .footer-text {
+            color: #71717a;
+            font-size: 0.9rem;
+        }
+        
+        .footer-brand {
+            color: #6366f1;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .main-wrapper {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                padding: 1rem 0;
+            }
+            
+            .main-content {
+                padding: 2rem 1rem;
+            }
+            
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                            <path d="M12 0L3 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7L12 0z"/>
+                        </svg>
+                    </div>
+                    TechFlow
+                </div>
+                <div class="header-actions">
+                    <button class="btn-tech btn-outline">Sign In</button>
+                    <button class="btn-tech btn-primary">Get Started</button>
+                </div>
+            </div>
+        </header>
+        
+        <div class="main-wrapper">
+            <nav class="sidebar">
+                <div class="nav-header">
+                    <div class="nav-title">AI Dashboard</div>
+                    <div class="nav-subtitle">Next-gen solutions</div>
+                </div>
+                
+                <ul class="nav-sections">
+                    <li class="nav-section">
+                        <div class="section-title">Platform</div>
+                        <ul class="nav-links">
+                            <li><a href="#" class="nav-link active">
+                                <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                                </svg>
+                                Overview
+                            </a></li>
+                            <li><a href="#" class="nav-link">
+                                <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                </svg>
+                                Analytics
+                            </a></li>
+                            <li><a href="#" class="nav-link">
+                                <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                                </svg>
+                                Models
+                            </a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-section">
+                        <div class="section-title">Development</div>
+                        <ul class="nav-links">
+                            <li><a href="#" class="nav-link">
+                                <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                                </svg>
+                                API Keys
+                            </a></li>
+                            <li><a href="#" class="nav-link">
+                                <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 2 2h8c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                                </svg>
+                                Documentation
+                            </a></li>
+                            <li><a href="#" class="nav-link">
+                                <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                                Testing
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            
+            <main class="main-content">
+                <div class="page-header">
+                    <h1 class="page-title">AI-Powered Solutions</h1>
+                    <p class="page-description">Harness the power of artificial intelligence to transform your business processes and unlock new possibilities with our cutting-edge platform.</p>
+                </div>
+                
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <svg width="32" height="32" fill="white" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="card-title">Natural Language Processing</h3>
+                                <p class="card-subtitle">Advanced text analysis</p>
+                            </div>
+                        </div>
+                        <p class="card-content">Process and understand human language with state-of-the-art NLP models. Extract insights, sentiment, and meaning from text data at scale.</p>
+                        <ul class="card-features">
+                            <li class="feature-item">
+                                <svg class="feature-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                </svg>
+                                Sentiment Analysis
+                            </li>
+                            <li class="feature-item">
+                                <svg class="feature-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                </svg>
+                                Entity Recognition
+                            </li>
+                            <li class="feature-item">
+                                <svg class="feature-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                </svg>
+                                Language Translation
+                            </li>
+                        </ul>
+                        <div class="card-footer">
+                            <span class="status-badge status-active">Active</span>
+                            <button class="card-action">Explore API</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <svg width="32" height="32" fill="white" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="card-title">Computer Vision</h3>
+                                <p class="card-subtitle">Image & video analysis</p>
+                            </div>
+                        </div>
+                        <p class="card-content">Analyze images and videos with advanced computer vision algorithms. Detect objects, faces, and extract meaningful information from visual data.</p>
+                        <ul class="card-features">
+                            <li class="feature-item">
+                                <svg class="feature-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                </svg>
+                                Object Detection
+                            </li>
+                            <li class="feature-item">
+                                <svg class="feature-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                </svg>
+                                Facial Recognition
+                            </li>
+                            <li class="feature-item">
+                                <svg class="feature-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                </svg>
+                                OCR Processing
+                            </li>
+                        </ul>
+                        <div class="card-footer">
+                            <span class="status-badge status-active">Active</span>
+                            <button class="card-action">View Models</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <svg width="32" height="32" fill="white" viewBox="0 0 24 24">
+                                    <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="card-title">Predictive Analytics</h3>
+                                <p class="card-subtitle">Machine learning insights</p>
+                            </div>
+                        </div>
+                        <p class="card-content">Forecast trends and make data-driven predictions using advanced machine learning algorithms trained on your business data.</p>
+                        <ul class="card-features">
+                            <li class="feature-item">
+                                <svg class="feature-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                </svg>
+                                Time Series Forecasting
+                            </li>
+                            <li class="feature-item">
+                                <svg class="feature-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                </svg>
+                                Anomaly Detection
+                            </li>
+                            <li class="feature-item">
+                                <svg class="feature-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                </svg>
+                                Risk Assessment
+                            </li>
+                        </ul>
+                        <div class="card-footer">
+                            <span class="status-badge status-beta">Beta</span>
+                            <button class="card-action">Try Beta</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <svg width="32" height="32" fill="white" viewBox="0 0 24 24">
+                                    <path d="M12 1L3 5v6c0 5.55 3.84 9.739 9 11 5.16-1.261 9-5.45 9-11V5l-9-4z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="card-title">AutoML Platform</h3>
+                                <p class="card-subtitle">No-code AI solutions</p>
+                            </div>
+                        </div>
+                        <p class="card-content">Build and deploy machine learning models without coding expertise. Our AutoML platform handles the complexity while you focus on results.</p>
+                        <ul class="card-features">
+                            <li class="feature-item">
+                                <svg class="feature-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                </svg>
+                                Drag & Drop Interface
+                            </li>
+                            <li class="feature-item">
+                                <svg class="feature-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                </svg>
+                                Auto Model Selection
+                            </li>
+                            <li class="feature-item">
+                                <svg class="feature-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                </svg>
+                                One-Click Deployment
+                            </li>
+                        </ul>
+                        <div class="card-footer">
+                            <span class="status-badge status-beta">Beta</span>
+                            <button class="card-action">Join Waitlist</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-text">&copy; 2025 <span class="footer-brand">TechFlow AI</span>. All rights reserved. | Powered by cutting-edge artificial intelligence.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

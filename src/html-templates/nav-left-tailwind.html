@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nav Left Layout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'nav-bg': '#252526',
+                        'header-bg': '#0e639c',
+                        'main-bg': '#333333',
+                        'footer-bg': '#1e1e1e',
+                        'accent': '#3794ff'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-screen flex">
+    <!-- Left Navigation -->
+    <nav class="w-64 bg-nav-bg text-white p-6 flex flex-col">
+        <div class="text-2xl font-bold mb-8 text-accent">Navigator</div>
+        <div class="space-y-4 flex-1">
+            <a href="#" class="block text-lg hover:text-accent transition-colors pl-2 border-l-4 border-transparent hover:border-accent">About</a>
+            <a href="#" class="block text-lg hover:text-accent transition-colors pl-2 border-l-4 border-transparent hover:border-accent">Home</a>
+            <a href="#" class="block text-lg hover:text-accent transition-colors pl-2 border-l-4 border-transparent hover:border-accent">Templates</a>
+            <a href="#" class="block text-lg hover:text-accent transition-colors pl-2 border-l-4 border-transparent hover:border-accent">Documentation</a>
+            <a href="#" class="block text-lg hover:text-accent transition-colors pl-2 border-l-4 border-transparent hover:border-accent">Support</a>
+        </div>
+    </nav>
+
+    <div class="flex-1 flex flex-col">
+        <!-- Header -->
+        <header class="bg-header-bg text-white p-6 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <img src="../assets/images/logo.svg" alt="Navigator Logo" class="w-16 h-16">
+                <h1 class="text-3xl font-bold">Navigator</h1>
+            </div>
+            <div class="flex flex-col gap-2 absolute right-6">
+                <button class="px-6 py-2 border border-white/20 hover:bg-white/10 transition-colors rounded">Sign In</button>
+                <button class="px-6 py-2 bg-accent hover:bg-accent/90 transition-colors rounded">Register</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 bg-main-bg text-white p-8 overflow-auto">
+            <div class="bg-white/5 rounded-lg p-6 mb-6">
+                <h1 class="text-3xl font-bold mb-4">Main Content</h1>
+                <p class="text-lg text-gray-300 mb-8">This area contains the primary content of your web page. Once you've selected this layout, you can begin adding elements to this section.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white/5 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-4 text-accent">Getting Started</h3>
+                        <p class="mb-4">Start by customizing this layout:</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300">
+                            <li>Add your content sections</li>
+                            <li>Customize the navigation menu</li>
+                            <li>Update the header and footer</li>
+                            <li>Style elements to match your brand</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white/5 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-4 text-accent">Build Your Page</h3>
+                        <p class="mb-4">Drag and drop HTML elements from the toolbar to create your custom page layout. Common elements include:</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300">
+                            <li>Headings and paragraphs</li>
+                            <li>Images and media</li>
+                            <li>Forms and buttons</li>
+                            <li>Lists and tables</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-footer-bg text-white/60 p-4 text-center">
+            © 2025 Navigator. All rights reserved.
+        </footer>
+    </div>
+</body>
+</html>

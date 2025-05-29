@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuitarCraft - Handmade Acoustic Guitars</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #1a1511;
+            color: #f5f1eb;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .container::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 85%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 85% 15%, rgba(210, 180, 140, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2d1810 0%, #3d2317 50%, #4a2c1a 100%);
+            border-bottom: 2px solid #8b4513;
+            padding: 1rem 0;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 4px 20px rgba(139, 69, 19, 0.3);
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #cd853f, #daa520, #cd853f);
+            animation: woodGrain 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes woodGrain {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #daa520;
+            text-shadow: 0 0 15px rgba(218, 165, 32, 0.4);
+            font-family: 'Georgia', serif;
+        }
+        
+        .logo-icon {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #8b4513, #cd853f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: gentleGlow 4s ease-in-out infinite alternate;
+            position: relative;
+            box-shadow: 0 0 20px rgba(205, 133, 63, 0.3);
+        }
+        
+        @keyframes gentleGlow {
+            0% { box-shadow: 0 0 20px rgba(205, 133, 63, 0.3); }
+            100% { box-shadow: 0 0 30px rgba(218, 165, 32, 0.5); }
+        }
+        
+        .header-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .btn-guitar {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+        }
+        
+        .btn-outline-guitar {
+            background: transparent;
+            color: #d2b48c;
+            border: 2px solid #8b4513;
+        }
+        
+        .btn-outline-guitar:hover {
+            background: rgba(139, 69, 19, 0.2);
+            border-color: #cd853f;
+            color: #f5deb3;
+            box-shadow: 0 0 15px rgba(205, 133, 63, 0.3);
+        }
+        
+        .btn-wood {
+            background: linear-gradient(135deg, #8b4513, #cd853f);
+            color: #f5f1eb;
+            border: 2px solid #8b4513;
+        }
+        
+        .btn-wood:hover {
+            background: linear-gradient(135deg, #a0522d, #daa520);
+            box-shadow: 0 0 20px rgba(218, 165, 32, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .main-wrapper {
+            display: flex;
+            flex: 1;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .sidebar {
+            width: 320px;
+            background: linear-gradient(180deg, #241a13 0%, #1a1511 100%);
+            border-right: 2px solid #3d2317;
+            padding: 2rem 0;
+            position: relative;
+        }
+        
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, #8b4513, #cd853f, #8b4513);
+            opacity: 0.4;
+        }
+        
+        .nav-header {
+            padding: 0 2rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .nav-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #daa520;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+            font-family: 'Georgia', serif;
+        }
+        
+        .nav-subtitle {
+            color: #a0916d;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+        
+        .featured-guitar {
+            margin: 0 2rem 2rem 2rem;
+            background: linear-gradient(135deg, #2d1810, #3d2317);
+            border: 1px solid #4a2c1a;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .guitar-preview {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #8b4513, #cd853f);
+            border-radius: 50%;
+            margin: 0 auto 1rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .featured-title {
+            font-size: 1rem;
+            color: #daa520;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .featured-desc {
+            font-size: 0.85rem;
+            color: #a0916d;
+            font-style: italic;
+        }
+        
+        .nav-sections {
+            list-style: none;
+        }
+        
+        .section-header {
+            padding: 0 2rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #8b7355;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .nav-links {
+            list-style: none;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            color: #d2b48c;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: linear-gradient(90deg, rgba(139, 69, 19, 0.2), transparent);
+            color: #f5deb3;
+            border-left-color: #cd853f;
+            box-shadow: inset 0 0 15px rgba(139, 69, 19, 0.1);
+        }
+        
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 1rem;
+            opacity: 0.7;
+        }
+        
+        .nav-link:hover .nav-icon,
+        .nav-link.active .nav-icon {
+            opacity: 1;
+            filter: drop-shadow(0 0 5px currentColor);
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 3rem;
+            background: linear-gradient(135deg, #1a1511 0%, #241a13 100%);
+        }
+        
+        .page-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 3.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #daa520, #cd853f, #f4a460);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-family: 'Georgia', serif;
+            text-shadow: 0 0 30px rgba(218, 165, 32, 0.2);
+        }
+        
+        .page-description {
+            font-size: 1.2rem;
+            color: #a0916d;
+            max-width: 700px;
+            margin: 0 auto;
+            font-style: italic;
+            line-height: 1.8;
+        }
+        
+        .guitar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .guitar-card {
+            background: linear-gradient(135deg, #2d1810 0%, #3d2317 100%);
+            border: 2px solid #4a2c1a;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .guitar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8b4513, #cd853f, #daa520);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .guitar-card:hover {
+            transform: translateY(-8px) rotateY(2deg);
+            border-color: #cd853f;
+            box-shadow: 0 25px 50px rgba(139, 69, 19, 0.3),
+                        0 0 40px rgba(218, 165, 32, 0.1);
+        }
+        
+        .guitar-card:hover::before {
+            opacity: 1;
+        }
+        
+        .card-image {
+            height: 220px;
+            background: linear-gradient(135deg, #8b4513, #cd853f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 8px,
+                    rgba(139, 69, 19, 0.1) 8px,
+                    rgba(139, 69, 19, 0.1) 12px
+                );
+        }
+        
+        .card-icon {
+            width: 90px;
+            height: 90px;
+            background: rgba(26, 21, 17, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            z-index: 2;
+            position: relative;
+            border: 2px solid rgba(245, 222, 179, 0.3);
+        }
+        
+        .card-content {
+            padding: 2rem;
+        }
+        
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #f5deb3;
+            margin-bottom: 0.5rem;
+            font-family: 'Georgia', serif;
+        }
+        
+        .card-subtitle {
+            color: #cd853f;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        
+        .card-description {
+            color: #a0916d;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        
+        .guitar-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(26, 21, 17, 0.3);
+            border-radius: 12px;
+            border: 1px solid #3d2317;
+        }
+        
+        .spec {
+            text-align: center;
+        }
+        
+        .spec-label {
+            font-size: 0.8rem;
+            color: #8b7355;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+        
+        .spec-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #daa520;
+            font-family: 'Georgia', serif;
+        }
+        
+        .sound-wave {
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(218, 165, 32, 0.3) 25%, 
+                rgba(205, 133, 63, 0.5) 50%, 
+                rgba(218, 165, 32, 0.3) 75%, 
+                transparent 100%);
+            margin-bottom: 2rem;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sound-wave::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(245, 222, 179, 0.4), 
+                transparent);
+            animation: soundPulse 3s infinite;
+        }
+        
+        @keyframes soundPulse {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .price-tag {
+            padding: 0.75rem 1.25rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8b4513, #cd853f);
+            color: #f5f1eb;
+            border: 2px solid #daa520;
+            font-family: 'Georgia', serif;
+        }
+        
+        .craft-btn {
+            background: transparent;
+            color: #cd853f;
+            border: 2px solid #8b4513;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+        }
+        
+        .craft-btn:hover {
+            background: linear-gradient(135deg, #8b4513, #cd853f);
+            color: #f5f1eb;
+            box-shadow: 0 0 20px rgba(205, 133, 63, 0.4);
+            transform: scale(1.05);
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #1a1511 0%, #0f0c09 100%);
+            border-top: 2px solid #3d2317;
+            padding: 2rem 0;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #8b4513, #cd853f, #8b4513);
+            opacity: 0.6;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        
+        .footer-text {
+            color: #8b7355;
+            font-size: 1rem;
+            font-style: italic;
+        }
+        
+        .footer-brand {
+            color: #daa520;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(218, 165, 32, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .main-wrapper {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .guitar-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .guitar-specs {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .wood-section {
+            margin-top: 1.5rem;
+        }
+        
+        .wood-type {
+            color: #daa520;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-family: 'Georgia', serif;
+        }
+        
+        .wood-origin {
+            color: #cd853f;
+            font-style: italic;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .wood-description {
+            color: #a0916d;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg width="32" height="32" fill="#f5deb3" viewBox="0 0 24 24">
+                            <path d="M12 1c-4.97 0-9 4.03-9 9v7c0 2.76 2.24 5 5 5h1v-9H7v-3c0-2.76 2.24-5 5-5s5 2.24 5 5v3h-2v9h1c2.76 0 5-2.24 5-5v-7c0-4.97-4.03-9-9-9z"/>
+                        </svg>
+                    </div>
+                    GuitarCraft
+                </div>
+                <div class="header-actions">
+                    <button class="btn-guitar btn-outline-guitar">Browse</button>
+                    <button class="btn-guitar btn-wood">Custom Order</button>
+                </div>
+            </div>
+        </header>
+        
+        <div class="main-wrapper">
+            <nav class="sidebar">
+                <div class="nav-header">
+                    <div class="nav-title">Master Collection</div>
+                    <div class="nav-subtitle">Handcrafted with passion since 1985</div>
+                </div>
+                
+                <div class="featured-guitar">
+                    <div class="guitar-preview">
+                        <svg width="40" height="40" fill="#f5deb3" viewBox="0 0 24 24">
+                            <path d="M12 1c-4.97 0-9 4.03-9 9v7c0 2.76 2.24 5 5 5h1v-9H7v-3c0-2.76 2.24-5 5-5s5 2.24 5 5v3h-2v9h1c2.76 0 5-2.24 5-5v-7c0-4.97-4.03-9-9-9z"/>
+                        </svg>
+                    </div>
+                    <div class="featured-title">Featured: Rosewood Concert</div>
+                    <div class="featured-desc">Our signature model with premium Brazilian rosewood</div>
+                </div>
+                
+                <ul class="nav-sections">
+                    <li>
+                        <div class="section-header">Guitar Types</div>
+                        <ul class="nav-links">                            <li><a href="concertSeries.html" class="nav-link active">
+                                <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 1c-4.97 0-9 4.03-9 9v7c0 2.76 2.24 5 5 5h1v-9H7v-3c0-2.76 2.24-5 5-5s5 2.24 5 5v3h-2v9h1c2.76 0 5-2.24 5-5v-7c0-4.97-4.03-9-9-9z"/>
+                                </svg>
+                                Concert Series
+                            </a></li>
+                            <li><a href="dreadnought.html" class="nav-link">
+                                <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                Dreadnought
+                            </a></li>
+                            <li><a href="classical.html" class="nav-link">
+                                <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                                </svg>
+                                Classical
+                            </a></li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <div class="section-header">Wood Selection</div>
+                        <ul class="nav-links">
+                            <li><a href="#" class="nav-link">
+                                <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                                Rosewood
+                            </a></li>
+                            <li><a href="#" class="nav-link">
+                                <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 2 2h8c1.1 0 2-.9 2-2V8l-6-6z"/>
+                                </svg>
+                                Mahogany
+                            </a></li>
+                            <li><a href="#" class="nav-link">
+                                <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 1L3 5v6c0 5.55 3.84 9.739 9 11 5.16-1.261 9-5.45 9-11V5l-9-4z"/>
+                                </svg>
+                                Maple
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+              <main class="main-content">
+                <div class="page-header">
+                    <h1 class="page-title">Premium Tonewoods</h1>
+                    <p class="page-description">Discover our carefully curated selection of the world's finest tonewoods, each chosen for its exceptional tonal properties and stunning visual character.</p>
+                </div>
+
+                <div class="guitar-grid">
+                    <!-- Premium Soundboards Section -->
+                    <div class="guitar-card">
+                        <div class="card-image">
+                            <div class="card-icon">
+                                <svg width="50" height="50" fill="#f5deb3" viewBox="0 0 24 24">
+                                    <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Premium Soundboards</h3>
+                            <p class="card-subtitle">Master Grade Top Woods</p>
+                            
+                            <div class="wood-section">
+                                <h4 class="wood-type">Sitka Spruce (AAA Grade)</h4>
+                                <p class="wood-origin">Origin: Pacific Northwest, Canada</p>
+                                <p class="wood-description">Our highest grade Sitka spruce features exceptional stiffness-to-weight ratio, providing powerful projection with pristine clarity. Characterized by tight, straight grain patterns and optimal density.</p>
+                                
+                                <h4 class="wood-type">Western Red Cedar (Master Grade)</h4>
+                                <p class="wood-origin">Origin: British Columbia, Canada</p>
+                                <p class="wood-description">Selected for its warm, rich overtones and quick response. Perfect for fingerstyle players, our master grade cedar tops offer exceptional cross-grain stiffness and distinctive reddish-brown hues.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Premium Back & Sides Section -->
+                    <div class="guitar-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #8b4513, #a0522d);">
+                            <div class="card-icon">
+                                <svg width="50" height="50" fill="#f5deb3" viewBox="0 0 24 24">
+                                    <path d="M3 15h18v-2H3v2zm0 4h18v-2H3v2zm0-8h18V9H3v2zm0-6v2h18V5H3z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Premium Back & Sides</h3>
+                            <p class="card-subtitle">Exhibition Grade Tonewoods</p>
+                            
+                            <div class="wood-section">
+                                <h4 class="wood-type">Brazilian Rosewood (Exhibition Grade)</h4>
+                                <p class="wood-origin">Origin: Sustainably Sourced, Pre-CITES Stock</p>
+                                <p class="wood-description">The king of tonewoods, our Brazilian rosewood sets feature spectacular figure and color variation. Known for complex harmonics, deep bass response, and crystalline trebles.</p>
+                                
+                                <h4 class="wood-type">Madagascar Rosewood (Premium Grade)</h4>
+                                <p class="wood-origin">Origin: Madagascar (Ethically Sourced)</p>
+                                <p class="wood-description">Selected for its similarity to Brazilian rosewood, offering rich, projective tone with excellent separation between notes. Features striking dark chocolate to violet hues.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Global Wood Selection -->
+                    <div class="guitar-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #daa520, #cd853f);">
+                            <div class="card-icon">
+                                <svg width="50" height="50" fill="#f5deb3" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Global Wood Selection</h3>
+                            <p class="card-subtitle">Sustainable & Rare Tonewoods</p>
+                            
+                            <div class="wood-section">
+                                <h4 class="wood-type">Honduran Mahogany (Select Grade)</h4>
+                                <p class="wood-origin">Origin: Central America</p>
+                                <p class="wood-description">Prized for its exceptional stability and focused midrange response. Our select grade sets feature quarter-sawn orientation for maximum stability and tonal projection.</p>
+                                
+                                <h4 class="wood-type">Australian Blackwood (Premium Grade)</h4>
+                                <p class="wood-origin">Origin: Tasmania, Australia</p>
+                                <p class="wood-description">A sustainable alternative to koa, featuring similar tonal properties with distinctive golden-brown coloring and complex figure patterns.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    .wood-section {
+                        margin-top: 1.5rem;
+                    }
+                    
+                    .wood-type {
+                        color: #daa520;
+                        font-size: 1.2rem;
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                        font-family: 'Georgia', serif;
+                    }
+                    
+                    .wood-origin {
+                        color: #cd853f;
+                        font-style: italic;
+                        font-size: 0.9rem;
+                        margin-bottom: 0.75rem;
+                    }
+                    
+                    .wood-description {
+                        color: #a0916d;
+                        line-height: 1.8;
+                        margin-bottom: 1.5rem;
+                        font-size: 0.95rem;
+                    }
+                </style>
+            </main>
+        </div>
+        
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">GuitarCraft</div>
+                <div class="footer-text">Handmade Acoustic Guitars | Est. 1985</div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

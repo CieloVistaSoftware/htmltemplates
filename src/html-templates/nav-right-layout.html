@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nav Right Layout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'nav-bg': '#252526',
+                        'header-bg': '#0e639c',
+                        'main-bg': '#333333',
+                        'footer-bg': '#1e1e1e',
+                        'accent': '#3794ff'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-screen flex">
+    <div class="flex-1 flex flex-col">
+        <!-- Header -->
+        <header class="bg-header-bg text-white p-6 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <img src="../assets/images/logo.svg" alt="Navigator Logo" class="w-16 h-16">
+                <h1 class="text-3xl font-bold">Navigator</h1>
+            </div>
+            <div class="flex flex-col gap-2">
+                <button class="px-6 py-2 border border-white/20 hover:bg-white/10 transition-colors rounded">Sign In</button>
+                <button class="px-6 py-2 bg-accent hover:bg-accent/90 transition-colors rounded">Register</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 bg-main-bg text-white p-8 overflow-auto">
+            <div class="bg-white/5 rounded-lg p-6 mb-6">
+                <h1 class="text-3xl font-bold mb-4">Main Content</h1>
+                <p class="text-lg text-gray-300 mb-8">This area contains the primary content of your web page. Once you've selected this layout, you can begin adding elements to this section.</p>                  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div id="Card1" class="bg-white/5 rounded-lg p-6 border border-accent/20 shadow-lg shadow-accent/5 hover:border-accent/30 hover:bg-white/10 transition-all duration-300 cursor-pointer">
+                        <h3 class="text-xl font-bold mb-4 text-accent flex items-center">
+                            <svg class="w-6 h-6 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            Getting Started
+                        </h3>
+                        <p class="mb-4 text-gray-200">Start by customizing this layout:</p>
+                        <ul class="space-y-3 text-gray-300">
+                            <li id="Card1Item1" class="flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                Add your content sections
+                            </li>
+                            <li id="Card1Item2" class="flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                Customize the navigation menu
+                            </li>
+                            <li id="Card1Item3" class="flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                Update the header and footer
+                            </li>
+                            <li id="Card1Item4" class="flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                Style elements to match your brand
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="Card2" class="bg-white/5 rounded-lg p-6 border border-accent/20 shadow-lg shadow-accent/5 hover:border-accent/30 hover:bg-white/10 transition-all duration-300 cursor-pointer">
+                        <h3 class="text-xl font-bold mb-4 text-accent flex items-center">
+                            <svg class="w-6 h-6 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                            </svg>
+                            Build Your Page
+                        </h3>
+                        <p class="mb-4 text-gray-200">Drag and drop HTML elements from the toolbar to create your custom page layout. Common elements include:</p>
+                        <ul class="space-y-3 text-gray-300">
+                            <li id="Card2Item1" class="flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                Headings and paragraphs
+                            </li>
+                            <li id="Card2Item2" class="flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                Images and media
+                            </li>
+                            <li id="Card2Item3" class="flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                Forms and buttons
+                            </li>
+                            <li id="Card2Item4" class="flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                Lists and tables
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-footer-bg text-white/60 p-4 text-center">
+            © 2025 Navigator. All rights reserved.
+        </footer>
+    </div>
+    
+    <!-- Right Navigation -->
+    <nav class="w-64 bg-nav-bg text-white p-6 flex flex-col border-l border-gray-600">
+        <div class="text-2xl font-bold mb-8 text-accent text-center">Navigator</div>
+        <div class="space-y-4 flex-1">
+            <a href="#" class="block text-lg hover:text-accent transition-colors pr-2 border-r-4 border-transparent hover:border-accent text-right">About</a>
+            <a href="#" class="block text-lg hover:text-accent transition-colors pr-2 border-r-4 border-transparent hover:border-accent text-right">Home</a>
+            <a href="#" class="block text-lg hover:text-accent transition-colors pr-2 border-r-4 border-transparent hover:border-accent text-right">Templates</a>
+            <a href="#" class="block text-lg hover:text-accent transition-colors pr-2 border-r-4 border-transparent hover:border-accent text-right">Documentation</a>
+            <a href="#" class="block text-lg hover:text-accent transition-colors pr-2 border-r-4 border-transparent hover:border-accent text-right">Support</a>
+        </div>
+        
+        <!-- Right Nav Footer -->
+        <div class="mt-8 pt-4 border-t border-gray-600">
+            <div class="text-center text-sm text-gray-400 mb-4">Quick Actions</div>
+            <div class="space-y-2">
+                <button class="w-full px-3 py-2 bg-accent/20 hover:bg-accent/30 text-accent text-sm rounded transition-colors">
+                    New Project
+                </button>
+                <button class="w-full px-3 py-2 bg-white/10 hover:bg-white/20 text-white text-sm rounded transition-colors">
+                    Settings
+                </button>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>

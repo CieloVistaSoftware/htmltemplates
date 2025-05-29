@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Studio - Digital Art & Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            padding: 1rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .btn-creative {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-ghost {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .btn-solid {
+            background: rgba(255,255,255,0.9);
+            color: #333;
+        }
+        
+        .btn-creative:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.2);
+        }
+        
+        .main-layout {
+            display: flex;
+            flex: 1;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: #111111;
+            border-right: 2px solid #222222;
+            padding: 2rem 0;
+        }
+        
+        .nav-header {
+            padding: 0 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .nav-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .nav-subtitle {
+            color: #888;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 1rem 2rem;
+            color: #cccccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: #1a1a1a;
+            color: #ff6b6b;
+            border-left-color: #ff6b6b;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::before {
+            width: 4px;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 3rem;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+        }
+        
+        .content-header {
+            margin-bottom: 3rem;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .page-subtitle {
+            color: #aaaaaa;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .portfolio-card {
+            background: #1a1a1a;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            border: 2px solid #222222;
+        }
+        
+        .portfolio-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(255,107,107,0.2);
+            border-color: #ff6b6b;
+        }
+        
+        .card-image {
+            height: 200px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            z-index: 2;
+            position: relative;
+        }
+        
+        .card-content {
+            padding: 2rem;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+        
+        .card-description {
+            color: #aaaaaa;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: rgba(255,107,107,0.2);
+            color: #ff6b6b;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .footer {
+            background: #000000;
+            padding: 2rem 0;
+            border-top: 2px solid #222222;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        
+        .footer-text {
+            color: #666666;
+            font-size: 1rem;
+        }
+        
+        .footer-highlight {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .main-layout {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg width="28" height="28" fill="white" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    Creative Studio
+                </div>
+                <div class="header-buttons">
+                    <button class="btn-creative btn-ghost">Portfolio</button>
+                    <button class="btn-creative btn-solid">Hire Me</button>
+                </div>
+            </div>
+        </header>
+        
+        <div class="main-layout">
+            <nav class="sidebar">
+                <div class="nav-header">
+                    <div class="nav-title">Explore</div>
+                    <div class="nav-subtitle">Digital Creations</div>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#" class="nav-link active">Featured Work</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Web Design</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Branding</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Illustrations</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Photography</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Motion Graphics</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <main class="main-content">
+                <div class="content-header">
+                    <h1 class="page-title">Creative Portfolio</h1>
+                    <p class="page-subtitle">Pushing boundaries through innovative design and cutting-edge digital artistry. Every project tells a unique story.</p>
+                </div>
+                
+                <div class="portfolio-grid">
+                    <div class="portfolio-card">
+                        <div class="card-image">
+                            <div class="card-icon">
+                                <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Brand Identity System</h3>
+                            <p class="card-description">Complete visual identity design for a tech startup, including logo, color palette, typography, and brand guidelines.</p>
+                            <div class="card-tags">
+                                <span class="tag">Branding</span>
+                                <span class="tag">Logo Design</span>
+                                <span class="tag">Guidelines</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-card">
+                        <div class="card-image" style="background: linear-gradient(45deg, #4ecdc4, #45b7d1);">
+                            <div class="card-icon">
+                                <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+                                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">E-commerce Platform</h3>
+                            <p class="card-description">Modern, responsive web design for an online marketplace with focus on user experience and conversion optimization.</p>
+                            <div class="card-tags">
+                                <span class="tag">Web Design</span>
+                                <span class="tag">UX/UI</span>
+                                <span class="tag">E-commerce</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-card">
+                        <div class="card-image" style="background: linear-gradient(45deg, #f9ca24, #f0932b);">
+                            <div class="card-icon">
+                                <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+                                    <path d="M9 11H7v6h2v-6zm4 0h-2v6h2v-6zm4 0h-2v6h2v-6zm2.5-9H19v2h-6V2H7v2H1v2h1v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6h1V4h-4.5z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Mobile App Design</h3>
+                            <p class="card-description">Intuitive mobile application interface design with seamless user flow and modern aesthetic principles.</p>
+                            <div class="card-tags">
+                                <span class="tag">Mobile</span>
+                                <span class="tag">App Design</span>
+                                <span class="tag">Prototyping</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-card">
+                        <div class="card-image" style="background: linear-gradient(45deg, #a55eea, #ff6b6b);">
+                            <div class="card-icon">
+                                <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Digital Illustrations</h3>
+                            <p class="card-description">Collection of custom digital artwork and illustrations for various clients and personal creative projects.</p>
+                            <div class="card-tags">
+                                <span class="tag">Illustration</span>
+                                <span class="tag">Digital Art</span>
+                                <span class="tag">Creative</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-text">&copy; 2025 <span class="footer-highlight">Creative Studio</span>. All rights reserved. | Crafted with passion and pixels.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

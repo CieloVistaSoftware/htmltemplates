@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreadnought Series - GuitarCraft Acoustic Guitars</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #1a1511;
+            color: #f5f1eb;
+            line-height: 1.7;
+        }
+        
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2d1810 0%, #3d2317 50%, #4a2c1a 100%);
+            border-bottom: 2px solid #8b4513;
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(139, 69, 19, 0.3);
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #daa520;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #8b4513, #cd853f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-menu a {
+            color: #d2b48c;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+        }
+        
+        .nav-menu a:hover, .nav-menu a.active {
+            color: #daa520;
+            background: rgba(139, 69, 19, 0.2);
+        }
+        
+        .header-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .btn-guitar {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+        }
+        
+        .btn-outline-guitar {
+            background: transparent;
+            color: #d2b48c;
+            border: 2px solid #8b4513;
+        }
+        
+        .btn-outline-guitar:hover {
+            background: rgba(139, 69, 19, 0.2);
+            border-color: #cd853f;
+            color: #f5deb3;
+        }
+        
+        .btn-wood {
+            background: linear-gradient(135deg, #8b4513, #cd853f);
+            color: #f5f1eb;
+            border: 2px solid #8b4513;
+        }
+        
+        .btn-wood:hover {
+            background: linear-gradient(135deg, #a0522d, #daa520);
+            transform: translateY(-2px);
+        }
+        
+        .main-wrapper {
+            display: flex;
+            flex: 1;
+        }
+        
+        .sidebar {
+            width: 300px;
+            background: linear-gradient(180deg, #241a13 0%, #1a1511 100%);
+            border-right: 2px solid #3d2317;
+            padding: 2rem 0;
+        }
+        
+        .nav-header {
+            padding: 0 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .nav-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #daa520;
+            margin-bottom: 0.5rem;
+        }
+        
+        .nav-subtitle {
+            color: #a0916d;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+        
+        .breadcrumb {
+            padding: 0 2rem;
+            margin-bottom: 2rem;
+            font-size: 0.85rem;
+            color: #8b7355;
+        }
+        
+        .breadcrumb a {
+            color: #cd853f;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            list-style: none;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            color: #d2b48c;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: linear-gradient(90deg, rgba(139, 69, 19, 0.2), transparent);
+            color: #f5deb3;
+            border-left-color: #cd853f;
+        }
+        
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 1rem;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 3rem;
+            background: linear-gradient(135deg, #1a1511 0%, #241a13 100%);
+        }
+        
+        .page-hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.15), rgba(205, 133, 63, 0.08));
+            border-radius: 20px;
+            border: 1px solid #3d2317;
+        }
+        
+        .hero-title {
+            font-size: 3.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #daa520, #cd853f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-family: 'Georgia', serif;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #cd853f;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .hero-description {
+            font-size: 1.1rem;
+            color: #a0916d;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        .series-info {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .info-content {
+            background: linear-gradient(135deg, #2d1810, #3d2317);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid #4a2c1a;
+        }
+        
+        .info-title {
+            font-size: 1.8rem;
+            color: #daa520;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .info-text {
+            color: #a0916d;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .features-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+        
+        .features-list li {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            color: #d2b48c;
+            border-bottom: 1px solid rgba(139, 69, 19, 0.2);
+        }
+        
+        .features-list svg {
+            margin-right: 1rem;
+            color: #cd853f;
+        }
+        
+        .series-stats {
+            background: linear-gradient(135deg, #3d2317, #2d1810);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid #4a2c1a;
+        }
+        
+        .stats-title {
+            font-size: 1.3rem;
+            color: #daa520;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .stat-item {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #cd853f;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #8b7355;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .guitars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .guitar-card {
+            background: linear-gradient(135deg, #2d1810 0%, #3d2317 100%);
+            border: 2px solid #4a2c1a;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .guitar-card:hover {
+            transform: translateY(-8px);
+            border-color: #cd853f;
+            box-shadow: 0 25px 50px rgba(139, 69, 19, 0.3);
+        }
+        
+        .card-image {
+            height: 200px;
+            background: linear-gradient(135deg, #8b4513, #cd853f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(26, 21, 17, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .card-content {
+            padding: 2rem;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f5deb3;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #daa520;
+            margin-bottom: 1rem;
+        }
+        
+        .card-description {
+            color: #a0916d;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+        
+        .card-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .spec {
+            background: rgba(26, 21, 17, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .spec-label {
+            font-size: 0.8rem;
+            color: #8b7355;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        
+        .spec-value {
+            font-size: 1rem;
+            color: #daa520;
+            font-weight: 600;
+        }
+        
+        .card-footer {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .card-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid #8b4513;
+            border-radius: 8px;
+            background: transparent;
+            color: #cd853f;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .card-btn:hover {
+            background: linear-gradient(135deg, #8b4513, #cd853f);
+            color: #f5f1eb;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #1a1511 0%, #0f0c09 100%);
+            border-top: 2px solid #3d2317;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-text {
+            color: #8b7355;
+            font-style: italic;
+        }
+        
+        .footer-brand {
+            color: #daa520;
+            font-weight: 700;
+        }
+        
+        @media (max-width: 768px) {
+            .main-wrapper {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .series-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .guitars-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <div class="logo-icon">
+                        <svg width="32" height="32" fill="#f5deb3" viewBox="0 0 24 24">
+                            <path d="M12 1c-4.97 0-9 4.03-9 9v7c0 2.76 2.24 5 5 5h1v-9H7v-3c0-2.76 2.24-5 5-5s5 2.24 5 5v3h-2v9h1c2.76 0 5-2.24 5-5v-7c0-4.97-4.03-9-9-9z"/>
+                        </svg>
+                    </div>
+                    GuitarCraft
+                </a>
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="#">Concert Series</a></li>
+                        <li><a href="#" class="active">Dreadnought</a></li>
+                        <li><a href="#">Classical</a></li>
+                        <li><a href="#">Custom Shop</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <button class="btn-guitar btn-outline-guitar">Browse</button>
+                    <button class="btn-guitar btn-wood">Custom Order</button>
+                </div>
+            </div>
+        </header>
+        
+        <div class="main-wrapper">
+            <nav class="sidebar">
+                <div class="nav-header">
+                    <div class="nav-title">Dreadnought</div>
+                    <div class="nav-subtitle">Power & Projection</div>
+                </div>
+                
+                <div class="breadcrumb">
+                    <a href="#">Home</a> / <a href="#">Guitars</a> / Dreadnought
+                </div>
+                
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link active">
+                        <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                        </svg>
+                        All Dreadnought Models
+                    </a></li>
+                    <li><a href="#" class="nav-link">
+                        <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        Heritage Collection
+                    </a></li>
+                    <li><a href="#" class="nav-link">
+                        <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                        </svg>
+                        Vintage Series
+                    </a></li>
+                    <li><a href="#" class="nav-link">
+                        <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                        </svg>
+                        Limited Editions
+                    </a></li>
+                </ul>
+            </nav>
+            
+            <main class="main-content">
+                <div class="page-hero">
+                    <h1 class="hero-title">Dreadnought</h1>
+                    <p class="hero-subtitle">The King of Acoustic Guitars</p>
+                    <p class="hero-description">Born from the legendary Martin D-28 tradition, our Dreadnought series delivers the iconic sound that defined acoustic music. Bold, powerful, and unmistakably American in character.</p>
+                </div>
+                
+                <div class="series-info">
+                    <div class="info-content">
+                        <h2 class="info-title">Legendary Power</h2>
+                        <p class="info-text">The Dreadnought body shape revolutionized acoustic guitar design in the 1930s, and its influence continues to shape music today. With its large body cavity and distinctive waisted figure-8 shape, the Dreadnought produces unmatched volume and bass response.</p>
+                        
+                        <p class="info-text">Our Dreadnought series honors this legacy while incorporating modern innovations. Each guitar features carefully graduated tops, scalloped X-bracing, and premium appointments that enhance both tone and playability. Whether you're strumming around a campfire or recording in Nashville, these guitars deliver the authentic Dreadnought experience.</p>
+                        
+                        <ul class="features-list">
+                            <li>
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                </svg>
+                                Forward-shifted X-bracing pattern
+                            </li>
+                            <li>
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                </svg>
+                                Hand-scalloped braces for optimal resonance
+                            </li>
+                            <li>
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                </svg>
+                                Vintage-style slotted headstock option
+                            </li>
+                            <li>
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                </svg>
+                                High-quality Grover tuning machines
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="series-stats">
+                        <h3 class="stats-title">Dreadnought Specs</h3>
+                        <div class="stat-item">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Different Models</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">25.4"</span>
+                            <span class="stat-label">Scale Length</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">15.6"</span>
+                            <span class="stat-label">Lower Bout Width</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">4.75"</span>
+                            <span class="stat-label">Max Body Depth</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guitars-grid">
+                    <div class="guitar-card">
+                        <div class="card-image">
+                            <div class="card-icon">
+                                <svg width="45" height="45" fill="#f5deb3" viewBox="0 0 24 24">
+                                    <path d="M12 1c-4.97 0-9 4.03-9 9v7c0 2.76 2.24 5 5 5h1v-9H7v-3c0-2.76 2.24-5 5-5s5 2.24 5 5v3h-2v9h1c2.76 0 5-2.24 5-5v-7c0-4.97-4.03-9-9-9z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Heritage D-28 Style</h3>
+                            <div class="card-price">$3,200</div>
+                            <p class="card-description">The quintessential Dreadnought with Sitka Spruce top and East Indian Rosewood back and sides. Rich bass, sparkling trebles, and the classic woody growl.</p>
+                            <div class="card-specs">
+                                <div class="spec">
+                                    <div class="spec-label">Top</div>
+                                    <div class="spec-value">Sitka Spruce</div>
+                                </div>
+                                <div class="spec">
+                                    <div class="spec-label">Back/Sides</div>
+                                    <div class="spec-value">E.I. Rosewood</div>
+                                </div>
+                                <div class="spec">
+                                    <div class="spec-label">Neck</div>
+                                    <div class="spec-value">Mahogany</div>
+                                </div>
+                                <div class="spec">
+                                    <div class="spec-label">Fretboard</div>
+                                    <div class="spec-value">Ebony</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="card-btn">View Details</button>
+                                <button class="card-btn">Try Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="guitar-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #a0522d, #daa520);">
+                            <div class="card-icon">
+                                <svg width="45" height="45" fill="#f5deb3" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">D-18 Mahogany Classic</h3>
+                            <div class="card-price">$2,400</div>
+                            <p class="card-description">All-mahogany construction delivers a warm, focused tone with excellent note separation. Perfect for both recording and live performance applications.</p>
+                            <div class="card-specs">
+                                <div class="spec">
+                                    <div class="spec-label">Top</div>
+                                    <div class="spec-value">Mahogany</div>
+                                </div>
+                                <div class="spec">
+                                    <div class="spec-label">Back/Sides</div>
+                                    <div class="spec-value">Mahogany</div>
+                                </div>
+                                <div class="spec">
+                                    <div class="spec-label">Neck</div>
+                                    <div class="spec-value">Mahogany</div>
+                                </div>
+                                <div class="spec">
+                                    <div class="spec-label">Fretboard</div>
+                                    <div class="spec-value">Rosewood</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="card-btn">View Details</button>
+                                <button class="card-btn">Try Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="guitar-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #cd853f, #f4a460);">
+                            <div class="card-icon">
+                                <svg width="45" height="45" fill="#f5deb3" viewBox="0 0 24 24">
+                                    <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Vintage D-45 Replica</h3>
+                            <div class="card-price">$5,800</div>
+                            <p class="card-description">Inspired by the legendary pre-war D-45. Brazilian Rosewood back and sides with Adirondack Spruce top. Mother-of-pearl inlays and abalone binding.</p>
+                            <div class="card-specs">
+                                <div class="spec">
+                                    <div class="spec-label">Top</div>
+                                    <div class="spec-value">Adirondack Spruce</div>
+                                </div>
+                                <div class="spec">
+                                    <div class="spec-label">Back/Sides</div>
+                                    <div class="spec-value">Brazilian Rosewood</div>
+                                </div>
+                                <div class="spec">
+                                    <div class="spec-label">Neck</div>
+                                    <div class="spec-value">Mahogany</div>
+                                </div>
+                                <div class="spec">
+                                    <div class="spec-label">Fretboard</div>
+                                    <div class="spec-value">Ebony</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="card-btn">View Details</button>
+                                <button class="card-btn">Reserve</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="guitar-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #8b4513, #daa520);">
+                            <div class="card-icon">
+                                <svg width="45" height="45" fill="#f5deb3" viewBox="0 0 24 24">
+                                    <path d="M12 1L3 5v6c0 5.55 3.84 9.739 9 11 5.16-1.261 9-5.45 9-11

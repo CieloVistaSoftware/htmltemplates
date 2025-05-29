@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GameHub - Ultimate Gaming Platform</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Rajdhani", "Orbitron", monospace;
+        background: #0d1117;
+        color: #f0f6fc;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+
+      .container::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 20% 80%,
+            rgba(255, 0, 150, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(0, 255, 255, 0.1) 0%,
+            transparent 50%
+          );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .header {
+        background: linear-gradient(
+          135deg,
+          #1a1a2e 0%,
+          #16213e 50%,
+          #0f3460 100%
+        );
+        border-bottom: 2px solid #ff0080;
+        padding: 1rem 0;
+        position: relative;
+        z-index: 10;
+        box-shadow: 0 4px 20px rgba(255, 0, 128, 0.3);
+      }
+
+      .header::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, #ff0080, #00ffff, #ff0080);
+        animation: neonPulse 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes neonPulse {
+        0% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .header-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2rem;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 1.8rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: #00ffff;
+        text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+      }
+
+      .logo-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #ff0080, #00ffff);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: logoGlow 3s ease-in-out infinite alternate;
+        position: relative;
+      }
+
+      @keyframes logoGlow {
+        0% {
+          box-shadow: 0 0 20px rgba(255, 0, 128, 0.5);
+        }
+        100% {
+          box-shadow: 0 0 30px rgba(0, 255, 255, 0.7);
+        }
+      }
+
+      .header-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .btn-gaming {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-outline-gaming {
+        background: transparent;
+        color: #00ffff;
+        border: 2px solid #00ffff;
+      }
+
+      .btn-outline-gaming:hover {
+        background: rgba(0, 255, 255, 0.1);
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+      }
+
+      .btn-neon {
+        background: linear-gradient(135deg, #ff0080, #ff4081);
+        color: white;
+        border: 2px solid #ff0080;
+      }
+
+      .btn-neon:hover {
+        background: linear-gradient(135deg, #ff4081, #ff0080);
+        box-shadow: 0 0 25px rgba(255, 0, 128, 0.6);
+        transform: translateY(-2px);
+      }
+
+      .main-wrapper {
+        display: flex;
+        flex: 1;
+        position: relative;
+        z-index: 5;
+      }
+
+      .sidebar {
+        width: 320px;
+        background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
+        border-right: 2px solid #30363d;
+        padding: 2rem 0;
+        position: relative;
+      }
+
+      .sidebar::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(180deg, #ff0080, #00ffff, #ff0080);
+        opacity: 0.3;
+      }
+
+      .nav-header {
+        padding: 0 2rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .nav-title {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #ff0080;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 10px rgba(255, 0, 128, 0.5);
+      }
+
+      .nav-subtitle {
+        color: #7d8590;
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+
+      .nav-sections {
+        list-style: none;
+      }
+
+      .section-header {
+        padding: 0 2rem;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #00ffff;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .nav-links {
+        list-style: none;
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 1rem 2rem;
+        color: #c9d1d9;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+        font-weight: 600;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        background: linear-gradient(90deg, rgba(255, 0, 128, 0.1), transparent);
+        color: #f0f6fc;
+        border-left-color: #ff0080;
+        box-shadow: inset 0 0 20px rgba(255, 0, 128, 0.1);
+      }
+
+      .nav-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 1rem;
+        opacity: 0.8;
+      }
+
+      .nav-link:hover .nav-icon,
+      .nav-link.active .nav-icon {
+        opacity: 1;
+        filter: drop-shadow(0 0 8px currentColor);
+      }
+
+      .main-content {
+        flex: 1;
+        padding: 3rem;
+        background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+      }
+
+      .page-header {
+        margin-bottom: 3rem;
+        text-align: center;
+      }
+
+      .page-title {
+        font-size: 3.5rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, #ff0080, #00ffff, #ff4081);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        text-shadow: 0 0 30px rgba(255, 0, 128, 0.3);
+      }
+
+      .page-description {
+        font-size: 1.2rem;
+        color: #8b949e;
+        max-width: 700px;
+        margin: 0 auto;
+        font-weight: 500;
+      }
+
+      .gaming-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        gap: 2.5rem;
+      }
+
+      .game-card {
+        background: linear-gradient(135deg, #1c2128 0%, #21262d 100%);
+        border: 2px solid #30363d;
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        position: relative;
+      }
+
+      .game-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #ff0080, #00ffff, #ff4081);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .game-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        border-color: #ff0080;
+        box-shadow: 0 20px 40px rgba(255, 0, 128, 0.2),
+          0 0 60px rgba(0, 255, 255, 0.1);
+      }
+
+      .game-card:hover::before {
+        opacity: 1;
+      }
+
+      .card-image {
+        height: 200px;
+        background: linear-gradient(135deg, #ff0080, #00ffff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card-image::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 2px,
+          rgba(255, 255, 255, 0.03) 2px,
+          rgba(255, 255, 255, 0.03) 4px
+        );
+      }
+
+      .card-icon {
+        width: 80px;
+        height: 80px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(10px);
+        z-index: 2;
+        position: relative;
+      }
+
+      .card-content {
+        padding: 2rem;
+      }
+
+      .card-title {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: #f0f6fc;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .card-subtitle {
+        color: #ff0080;
+        font-weight: 700;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+      }
+
+      .card-description {
+        color: #8b949e;
+        line-height: 1.7;
+        margin-bottom: 2rem;
+      }
+
+      .card-stats {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        border: 1px solid #30363d;
+      }
+
+      .stat {
+        text-align: center;
+      }
+
+      .stat-value {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #00ffff;
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+      }
+
+      .stat-label {
+        font-size: 0.8rem;
+        color: #7d8590;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+
+      .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .game-status {
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .status-live {
+        background: rgba(0, 255, 0, 0.2);
+        color: #00ff00;
+        border: 1px solid #00ff00;
+        animation: livePulse 2s infinite;
+      }
+
+      @keyframes livePulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      .status-beta {
+        background: rgba(255, 165, 0, 0.2);
+        color: #ffa500;
+        border: 1px solid #ffa500;
+      }
+
+      .play-btn {
+        background: linear-gradient(135deg, #ff0080, #ff4081);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        cursor: pointer;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+      }
+
+      .play-btn:hover {
+        background: linear-gradient(135deg, #ff4081, #ff0080);
+        box-shadow: 0 0 20px rgba(255, 0, 128, 0.5);
+        transform: scale(1.05);
+      }
+
+      .footer {
+        background: linear-gradient(135deg, #0d1117 0%, #000000 100%);
+        border-top: 2px solid #30363d;
+        padding: 2rem 0;
+        position: relative;
+      }
+
+      .footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, #ff0080, #00ffff, #ff0080);
+        opacity: 0.5;
+      }
+
+      .footer-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 0 2rem;
+      }
+
+      .footer-text {
+        color: #7d8590;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+
+      .footer-brand {
+        color: #00ffff;
+        font-weight: 800;
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+      }
+
+      @media (max-width: 768px) {
+        .main-wrapper {
+          flex-direction: column;
+        }
+
+        .sidebar {
+          width: 100%;
+        }
+
+        .page-title {
+          font-size: 2.5rem;
+        }
+
+        .gaming-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="header-content">
+          <div class="logo">
+            <div class="logo-icon">
+              <svg width="28" height="28" fill="white" viewBox="0 0 24 24">
+                <path
+                  d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"
+                />
+              </svg>
+            </div>
+            GameHub
+          </div>
+          <div class="header-actions">
+            <button class="btn-gaming btn-outline-gaming">Sign In</button>
+            <button class="btn-gaming btn-neon">Play Now</button>
+          </div>
+        </div>
+      </header>
+
+      <div class="main-wrapper">
+        <nav class="sidebar">
+          <div class="nav-header">
+            <div class="nav-title">Game Center</div>
+            <div class="nav-subtitle">Ultimate Gaming Experience</div>
+          </div>
+
+          <ul class="nav-sections">
+            <li>
+              <div class="section-header">Dashboard</div>
+              <ul class="nav-links">
+                <li>
+                  <a href="#" class="nav-link active">
+                    <svg
+                      class="nav-icon"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+                      />
+                    </svg>
+                    Featured Games
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link">
+                    <svg
+                      class="nav-icon"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                      />
+                    </svg>
+                    Tournaments
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link">
+                    <svg
+                      class="nav-icon"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
+                      />
+                    </svg>
+                    Leaderboards
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <div class="section-header">Categories</div>
+              <ul class="nav-links">
+                <li>
+                  <a href="#" class="nav-link">
+                    <svg
+                      class="nav-icon"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                      />
+                    </svg>
+                    Action Games
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link">
+                    <svg
+                      class="nav-icon"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"
+                      />
+                    </svg>
+                    Strategy
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link">
+                    <svg
+                      class="nav-icon"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 1L3 5v6c0 5.55 3.84 9.739 9 11 5.16-1.261 9-5.45 9-11V5l-9-4z"
+                      />
+                    </svg>
+                    RPG Games
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+
+        <main class="main-content">
+          <div class="page-header">
+            <h1 class="page-title">Game Arena</h1>
+            <p class="page-description">
+              Dive into the ultimate gaming experience with cutting-edge
+              graphics, competitive tournaments, and an epic community of
+              players.
+            </p>
+          </div>
+
+          <div class="gaming-grid">
+            <div class="game-card">
+              <div class="card-image">
+                <div class="card-icon">
+                  <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+                    <path
+                      d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="card-content">
+                <h3 class="card-title">Cyber Warfare</h3>
+                <p class="card-subtitle">First Person Shooter</p>
+                <p class="card-description">
+                  Engage in intense futuristic combat with advanced weaponry and
+                  tactical gameplay. Battle across multiple dimensions in this
+                  adrenaline-pumping FPS experience.
+                </p>
+                <div class="card-stats">
+                  <div class="stat">
+                    <div class="stat-value">2.5M</div>
+                    <div class="stat-label">Players</div>
+                  </div>
+                  <div class="stat">
+                    <div class="stat-value">4.8</div>
+                    <div class="stat-label">Rating</div>
+                  </div>
+                  <div class="stat">
+                    <div class="stat-value">250K</div>
+                    <div class="stat-label">Online</div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span class="game-status status-live">Live</span>
+                  <button class="play-btn">Launch Game</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-card">
+              <div
+                class="card-image"
+                style="background: linear-gradient(135deg, #00ffff, #ff4081)"
+              >
+                <div class="card-icon">
+                  <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+                    <path
+                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="card-content">
+                <h3 class="card-title">Neon Racers</h3>
+                <p class="card-subtitle">Racing Simulation</p>
+                <p class="card-description">
+                  Experience high-speed racing in a cyberpunk world with
+                  customizable vehicles and dynamic weather systems. Master the
+                  tracks and become the ultimate racer.
+                </p>
+                <div class="card-stats">
+                  <div class="stat">
+                    <div class="stat-value">1.8M</div>
+                    <div class="stat-label">Players</div>
+                  </div>
+                  <div class="stat">
+                    <div class="stat-value">4.6</div>
+                    <div class="stat-label">Rating</div>
+                  </div>
+                  <div class="stat">
+                    <div class="stat-value">180K</div>
+                    <div class="stat-label">Online</div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span class="game-status status-live">Live</span>
+                  <button class="play-btn">Start Racing</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-card">
+              <div
+                class="card-image"
+                style="background: linear-gradient(135deg, #ff0080, #ffa500)"
+              >
+                <div class="card-icon">
+                  <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+                    <path
+                      d="M12 1L3 5v6c0 5.55 3.84 9.739 9 11 5.16-1.261 9-5.45 9-11V5l-9-4z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="card-content">
+                <h3 class="card-title">Galaxy Conquest</h3>
+                <p class="card-subtitle">Strategy MMO</p>
+                <p class="card-description">
+                  Build your space empire, form alliances, and conquer the
+                  galaxy in this massive multiplayer strategy game. Command
+                  fleets and manage resources across star systems.
+                </p>
+                <div class="card-stats">
+                  <div class="stat">
+                    <div class="stat-value">850K</div>
+                    <div class="stat-label">Players</div>
+                  </div>
+                  <div class="stat">
+                    <div class="stat-value">4.4</div>
+                    <div class="stat-label">Rating</div>
+                  </div>
+                  <div class="stat">
+                    <div class="stat-value">95K</div>
+                    <div class="stat-label">Online</div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span class="game-status status-beta">Beta</span>
+                  <button class="play-btn">Join Beta</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-card">
+              <div
+                class="card-image"
+                style="background: linear-gradient(135deg, #8b5cf6, #06b6d4)"
+              >
+                <div class="card-icon">
+                  <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+                    <path
+                      d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="card-content">
+                <h3 class="card-title">Digital Legends</h3>
+                <p class="card-subtitle">Battle Royale</p>
+                <p class="card-description">
+                  Enter the arena with 100 players in this fast-paced battle
+                  royale. Use unique abilities, craft weapons, and be the last
+                  legend standing in the digital realm.
+                </p>
+                <div class="card-stats">
+                  <div class="stat">
+                    <div class="stat-value">3.2M</div>
+                    <div class="stat-label">Players</div>
+                  </div>
+                  <div class="stat">
+                    <div class="stat-value">4.9</div>
+                    <div class="stat-label">Rating</div>
+                  </div>
+                  <div class="stat">
+                    <div class="stat-value">420K</div>
+                    <div class="stat-label">Online</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
