@@ -1,61 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HTML Editor - Development Version</title>
-    <link rel="stylesheet" href="/src/assets/css/main.css" />
-    <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo.svg" />
-    <meta
-      name="description"
-      content="Visual HTML Editor with drag-and-drop interface"
-    />
-    <script>
-      // Check for layout selection immediately on page load before any content is rendered
-      (function() {
-        function hasLayoutSelected() {
-          // Check URL parameters
-          const urlParams = new URLSearchParams(window.location.search);
-          if (urlParams.has('layout')) {
-            localStorage.setItem('htmlEditorLayout', urlParams.get('layout'));
-            return true;
-          }
-          
-          // Check localStorage
-          return localStorage.getItem('htmlEditorLayout') !== null;
-        }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Template Collection</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        // Redirect if no layout is selected
-        if (!hasLayoutSelected() && !window.location.href.includes('layout/index.html')) {
-          console.log('No layout selected, redirecting to layout selection page...');
-          window.location.replace('layout/index.html');
-        }
-      })();
-    </script>
-  </head>
-  <body>
-    <div id="app" class="app-container">
-      <!-- Header section -->
-      <header id="header" class="header" data-partial="header-section.html">
-        <!-- Header content loaded from partial -->
-      </header>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f9fafb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
 
-      <!-- Main content -->
-      <main id="main" class="main-content" data-partial="main-container.html">
-        <!-- Main container content loaded from partial -->
-      </main>
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
 
-      <!-- Footer -->
-      <footer id="footer" class="footer" data-partial="footer-section.html">
-        <!-- Footer content loaded from partial -->
-      </footer>
+    .header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
 
-      <div class="preview-selector-container">
-        <button class="preview-button active" id="preview-button">Preview</button>
-        <button class="select-button" id="select-button">Select</button>
+    .header-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-subtitle {
+      font-size: 1.1rem;
+      color: #6b7280;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .templates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .template-category {
+      margin-bottom: 4rem;
+    }
+
+    .category-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: #374151;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 0.5rem;
+    }
+
+    .template-card {
+      background: white;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e5e7eb;
+      transition: all 0.3s ease;
+    }
+
+    .template-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .template-preview {
+      height: 200px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .template-content {
+      padding: 1.5rem;
+    }
+
+    .template-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #1f2937;
+    }
+
+    .template-description {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+    }
+
+    .template-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .tag {
+      padding: 0.25rem 0.75rem;
+      background: #f3f4f6;
+      border-radius: 1rem;
+      font-size: 0.75rem;
+      color: #4b5563;
+    }
+
+    .template-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      background: #3b82f6;
+      color: white;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      transition: background 0.3s ease;
+    }
+
+    .template-link:hover {
+      background: #2563eb;
+    }
+
+    .template-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .download-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      background: #10b981;
+      color: white;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      transition: background 0.3s ease;
+    }
+
+    .download-link:hover {
+      background: #059669;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      .header-title {
+        font-size: 2rem;
+      }
+      
+      .templates-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="header-title">HTML Template Collection</h1>
+      <p class="header-subtitle">A curated collection of modern, responsive HTML templates ready for your next project.</p>
+    </header>
+
+    <section class="template-category">
+      <h2 class="category-title">Basic Layouts</h2>
+      <div class="templates-grid">
+        <article class="template-card">
+          <div class="template-preview">Nav Left</div>
+          <div class="template-content">
+            <h3 class="template-title">Nav Left Layout</h3>
+            <p class="template-description">Navigation sidebar on the left with header, main content, and footer on the right.</p>
+            <div class="template-tags">
+              <span class="tag">Responsive</span>
+              <span class="tag">Left Sidebar</span>
+              <span class="tag">Clean</span>
+            </div>            <div class="template-actions">
+              <a href="src/html-templates/nav-left-layout.html" class="template-link">View Template</a>
+              <a href="src/html-templates/nav-left-layout.zip" class="download-link">Download</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="template-card">
+          <div class="template-preview">Nav Right</div>
+          <div class="template-content">
+            <h3 class="template-title">Nav Right Layout</h3>
+            <p class="template-description">Navigation sidebar on the right with header, main content, and footer on the left.</p>
+            <div class="template-tags">
+              <span class="tag">Responsive</span>
+              <span class="tag">Right Sidebar</span>
+              <span class="tag">Modern</span>
+            </div>            <div class="template-actions">
+              <a href="src/html-templates/nav-right-layout.html" class="template-link">View Template</a>
+              <a href="src/html-templates/nav-right-layout.zip" class="download-link">Download</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="template-card">
+          <div class="template-preview">Header Top</div>
+          <div class="template-content">
+            <h3 class="template-title">Header Top Layout</h3>
+            <p class="template-description">Traditional layout with header at top, followed by navigation, main content, and footer.</p>
+            <div class="template-tags">
+              <span class="tag">Classic</span>
+              <span class="tag">Header First</span>
+              <span class="tag">Simple</span>
+            </div>            <div class="template-actions">
+              <a href="src/html-templates/header-top-layout.html" class="template-link">View Template</a>
+              <a href="src/html-templates/header-top-layout.zip" class="download-link">Download</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="template-card">
+          <div class="template-preview">Nav Top</div>
+          <div class="template-content">
+            <h3 class="template-title">Nav Top Layout</h3>
+            <p class="template-description">Navigation at the top with content flowing below for a clean, minimalist look.</p>
+            <div class="template-tags">
+              <span class="tag">Minimal</span>
+              <span class="tag">Top Nav</span>
+              <span class="tag">Elegant</span>
+            </div>            <div class="template-actions">
+              <a href="src/html-templates/nav-top-layout.html" class="template-link">View Template</a>
+              <a href="src/html-templates/nav-top-layout.zip" class="download-link">Download</a>
+            </div>
+          </div>
+        </article>
       </div>
-    </div>
-    <!-- Scripts -->
-    <script type="module" src="/src/main.js"></script>
-  </body>
+    </section>
+
+    <section class="template-category">
+      <h2 class="category-title">Specialized Templates</h2>
+      <div class="templates-grid">
+        <article class="template-card">
+          <div class="template-preview">Portfolio</div>
+          <div class="template-content">
+            <h3 class="template-title">Portfolio Elegant</h3>
+            <p class="template-description">A sophisticated portfolio template with elegant styling and smooth animations.</p>
+            <div class="template-tags">
+              <span class="tag">Portfolio</span>
+              <span class="tag">Creative</span>
+              <span class="tag">Animations</span>
+            </div>            <div class="template-actions">
+              <a href="src/html-templates/PortfolioElegant.html" class="template-link">View Template</a>
+              <a href="src/html-templates/PortfolioElegant.zip" class="download-link">Download</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="template-card">
+          <div class="template-preview">Creative</div>
+          <div class="template-content">
+            <h3 class="template-title">Creative Studio</h3>
+            <p class="template-description">Perfect for creative agencies and design studios with modern aesthetics.</p>
+            <div class="template-tags">
+              <span class="tag">Agency</span>
+              <span class="tag">Creative</span>
+              <span class="tag">Modern</span>
+            </div>            <div class="template-actions">
+              <a href="src/html-templates/creativeStudio.html" class="template-link">View Template</a>
+              <a href="src/html-templates/creativeStudio.zip" class="download-link">Download</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="template-card">
+          <div class="template-preview">Tech</div>
+          <div class="template-content">
+            <h3 class="template-title">Tech Flow</h3>
+            <p class="template-description">Modern tech company template with AI-focused design elements.</p>
+            <div class="template-tags">
+              <span class="tag">Tech</span>
+              <span class="tag">AI</span>
+              <span class="tag">Modern</span>
+            </div>            <div class="template-actions">
+              <a href="src/html-templates/techflow.html" class="template-link">View Template</a>
+              <a href="src/html-templates/techflow.zip" class="download-link">Download</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="template-card">
+          <div class="template-preview">Bank</div>
+          <div class="template-content">
+            <h3 class="template-title">Bank Portfolio</h3>
+            <p class="template-description">Professional template for financial institutions with a focus on trust and security.</p>
+            <div class="template-tags">
+              <span class="tag">Finance</span>
+              <span class="tag">Professional</span>
+              <span class="tag">Corporate</span>
+            </div>            <div class="template-actions">
+              <a href="src/html-templates/bankportfolio.html" class="template-link">View Template</a>
+              <a href="src/html-templates/bankportfolio.zip" class="download-link">Download</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="template-card">
+          <div class="template-preview">Corporate</div>
+          <div class="template-content">
+            <h3 class="template-title">Corporate Pro</h3>
+            <p class="template-description">Enterprise-grade template for corporate websites with professional styling.</p>
+            <div class="template-tags">
+              <span class="tag">Corporate</span>
+              <span class="tag">Business</span>
+              <span class="tag">Professional</span>
+            </div>            <div class="template-actions">
+              <a href="src/html-templates/corporatePro.html" class="template-link">View Template</a>
+              <a href="src/html-templates/corporatePro.zip" class="download-link">Download</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="template-card">
+          <div class="template-preview">Gaming</div>
+          <div class="template-content">
+            <h3 class="template-title">Game Hub</h3>
+            <p class="template-description">Gaming-focused template with dynamic elements and dark theme.</p>
+            <div class="template-tags">
+              <span class="tag">Gaming</span>
+              <span class="tag">Dark Theme</span>
+              <span class="tag">Dynamic</span>
+            </div>            <div class="template-actions">
+              <a href="src/html-templates/gamehub.html" class="template-link">View Template</a>
+              <a href="src/html-templates/gamehub.zip" class="download-link">Download</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="template-card">
+          <div class="template-preview">Guitar</div>
+          <div class="template-content">
+            <h3 class="template-title">Guitar Craft</h3>
+            <p class="template-description">Elegant template for guitar manufacturers and artisans, featuring rich wood textures and craftsmanship details.</p>
+            <div class="template-tags">
+              <span class="tag">Music</span>
+              <span class="tag">Craft</span>
+              <span class="tag">Luxury</span>
+            </div>            <div class="template-actions">
+              <a href="src/html-templates/Guitar/guitarCraft.html" class="template-link">View Template</a>
+              <a href="src/html-templates/Guitar/guitarCraft.zip" class="download-link">Download</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+</body>
 </html>

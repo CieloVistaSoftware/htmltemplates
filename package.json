@@ -5,7 +5,6 @@
   "main": "src/main.js",
   "type": "commonjs",
   "scripts": {
-    "prestart": "node scripts/create-directories.js",
     "start": "node server.js",
     "dev": "concurrently \"npm:dev:server\" \"npm:dev:frontend\"",
     "dev:server": "nodemon server.js",
